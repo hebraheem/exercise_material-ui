@@ -1,7 +1,8 @@
 import { AppBar, Toolbar, Grid, Card, CardContent, CardMedia, Typography} from "@material-ui/core";
 import {makeStyles } from '@material-ui/core/styles'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import pokemons from './mockData'
+import axios from 'axios'
 import firstAlpha from './functions'
 
 const useStyles = makeStyles({
@@ -21,9 +22,26 @@ const useStyles = makeStyles({
 
 
 function Pokedex({history}) {
-    const [pokemonData, setPokemons] = useState(pokemons)
+    const [pokemonData, setPokemons] = useState({})
     const Classes = useStyles()
 
+    useEffect(()=>{
+        axios.get(`https://pokeapi.co/api/v2/pokemon?limit=807`)
+        .then(function(response){
+            const {data} = response;
+            const {results} = data;
+            const PokemonData ={};
+            results.forEach((pokemon, index)=>{
+                PokemonData[index + 1] = {
+                  id: index + 1,
+                  name: pokemon.name,
+                  sprites: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
+                };
+            }
+        )
+        setPokemons(PokemonData)
+    })
+    },[])
   return (
     <>
       <AppBar position="static">
