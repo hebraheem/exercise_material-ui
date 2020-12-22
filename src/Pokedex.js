@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Grid, Card, CardContent, CardMedia, Typography} from "@material-ui/core";
 import {makeStyles } from '@material-ui/core/styles'
 import React, {useEffect, useState} from "react";
-import pokemons from './mockData'
 import axios from 'axios'
 import firstAlpha from './functions'
 
@@ -27,7 +26,7 @@ function Pokedex({history}) {
 
     useEffect(()=>{
         axios.get(`https://pokeapi.co/api/v2/pokemon?limit=807`)
-        .then(function(response){
+        .then((response)=>{
             const {data} = response;
             const {results} = data;
             const PokemonData ={};
@@ -42,6 +41,7 @@ function Pokedex({history}) {
         setPokemons(PokemonData)
     })
     },[])
+
   return (
     <>
       <AppBar position="static">
@@ -76,14 +76,3 @@ function Pokedex({history}) {
 }
 
 export default Pokedex;
-
-
-// const GetPokemonCard = (pokemonId)=>{
-//     return(
-//         <Grid item xs={6} sm={4} md={3}>
-//             <Card>
-//                 <CardContent>hello</CardContent>
-//             </Card>
-//         </Grid>
-//     )
-// }
