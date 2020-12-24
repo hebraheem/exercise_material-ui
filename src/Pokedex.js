@@ -95,11 +95,11 @@ function Pokedex({ history }) {
       {pokemonData ? (
         <Grid container spacing={2} className={Classes.bodyContainer}>
           {Object.keys(pokemonData).map((pokemonId) => {
-            
+            let searchfilter = pokemonData[pokemonId].name.includes(filter.toLowerCase());
             const { id, name } = pokemonData[`${pokemonId}`];
             const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
             return (
-              pokemonData[pokemonId].name.includes(filter) && (
+              (searchfilter) && (
                 <Grid item xs={6} sm={4} md={3} key={id}>
                   <Card onClick={() => history.push(`/${pokemonId}`)}>
                     <CardMedia
