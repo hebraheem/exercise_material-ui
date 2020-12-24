@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "50px",
     paddingRight: "50px",
   },
-  cardMedia: {
-    margin: "auto",
+  media: {
+    margin: "0 100px",
   },
   cardContent: {
     textAlign: "center",
@@ -106,7 +106,7 @@ function Pokedex({ history }) {
                       style={{ width: "130px", height: "130px" }}
                       image={sprite}
                       alt={name}
-                      className={Classes.cardMedia}
+                      className={Classes.media}
                     />
                     <CardContent>
                       <Typography

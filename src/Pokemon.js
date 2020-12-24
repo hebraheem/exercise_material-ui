@@ -17,16 +17,18 @@ import firstAlpha from "./functions";
 const useStyle = makeStyles({
   cardStyle: {
     margin: "auto",
+    width: "600px",
     minWidth: "300px",
   },
-  //   root: {
-  //     justifyItems: "end",
-  //     alignItems: "flex-start",
-  //     alignSelf: "center",
-  //   },
   root: {
     margin: "50px 45%",
   },
+  media: {
+    width: "300px",
+    height: "300px",
+    margin: "auto",
+    marginTop: "15px"
+  }
 });
 
 function Pokemon(props) {
@@ -62,7 +64,8 @@ function Pokemon(props) {
             <CardMedia
               image={url}
               alt=""
-              style={{ width: "300px", height: "300px" }}
+              className={classes.media}
+            //   style={{ width: "300px", height: "300px" }}
             />
             <CardContent>
               <Typography variant="h3"> Pokemon info</Typography>
