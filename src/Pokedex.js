@@ -23,6 +23,15 @@ const useStyles = makeStyles((theme) => ({
   media: {
     margin: "0 100px",
   },
+  card: {
+    cursor: "pointer",
+    transitionProperty: "transform",
+    transitionDuration: "1s", 
+    '&:hover': {
+        transform: 'scale(1.05)',
+        transition: "1s"
+    }
+  },
   cardContent: {
     textAlign: "center",
   },
@@ -101,7 +110,7 @@ function Pokedex({ history }) {
             return (
               (searchfilter) && (
                 <Grid item xs={6} sm={4} md={3} key={id}>
-                  <Card onClick={() => history.push(`/${pokemonId}`)}>
+                  <Card onClick={() => history.push(`/${pokemonId}`)} className={Classes.card}>
                     <CardMedia
                       style={{ width: "130px", height: "130px" }}
                       image={sprite}
