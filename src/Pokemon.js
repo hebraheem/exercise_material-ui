@@ -7,17 +7,25 @@ import {
   Paper,
   makeStyles,
   CircularProgress,
+  Button,
+  Link,
 } from "@material-ui/core";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import firstAlpha from "./functions";
 
 const useStyle = makeStyles({
   cardStyle: {
     margin: "auto",
+    minWidth: "300px",
   },
-  GridStyle: {
-    justifyItems: "center",
-    alignItems: "center",
+  //   root: {
+  //     justifyItems: "end",
+  //     alignItems: "flex-start",
+  //     alignSelf: "center",
+  //   },
+  root: {
+    margin: "50px 45%",
   },
 });
 
@@ -27,28 +35,30 @@ function Pokemon(props) {
   const { params } = match;
   const { pokemonId } = params;
 
-  const fetchData = async () => {
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonId}/`
-    );
-    const data = await response.json();
-    return setPokemon(data);
-  };
-
   useEffect(() => {
-    fetchData();
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
+      .then((response) => {
+        const { data } = response;
+        setPokemon(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setPokemon(false);
+      });
   }, [pokemonId]);
+
   const getPokemon = () => {
     const { name, id, species, height, weight, types, sprites } = pokemon;
     const url = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
     const { front_default } = sprites;
     return (
-      <Grid container className={Classes.GridStyle}>
-        <Grid item xs={12}>
+      <Grid container direction="row" justify="center" alignItems="flex-start">
+        <Grid item xs={12} md={6}>
           <Typography variant="h1">
-            {`${id}. ${firstAlpha(name)}`} <img src={front_default} />
+            {`${id}. ${firstAlpha(name)}`} <img src={front_default} alt="" />
           </Typography>
-          <Card component={Paper} className={Classes.cardStyle}>
+          <Card component={Paper} className={classes.cardStyle}>
             <CardMedia
               image={url}
               alt=""
@@ -57,7 +67,7 @@ function Pokemon(props) {
             <CardContent>
               <Typography variant="h3"> Pokemon info</Typography>
               <Typography variant="h6">
-                species: <a href={species.url}>{species.name}</a>{" "}
+                species: <a href={species.url}>{species.name}</a>
               </Typography>
               <Typography variant="h6"> weight: {weight}</Typography>
               <Typography variant="h6"> height: {height}</Typography>
@@ -78,14 +88,35 @@ function Pokemon(props) {
     );
   };
 
-  const Classes = useStyle();
+  const classes = useStyle();
 
   return (
     <>
       {pokemon === undefined && <CircularProgress />}
-      {pokemon !== undefined && pokemon && getPokemon()}
+      {pokemon !== undefined && pokemon && (
+        <>
+          {getPokemon()}
+          <Link to="/">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.root}
+              onClick={() => history.push("/")}
+            >
+              Back home
+            </Button>
+          </Link>
+        </>
+      )}
       {pokemon === false && (
-        <Typography variant="h3">Pokemon not found</Typography>
+        <>
+          <Typography variant="h3">Pokemon not found</Typography>
+          <Link to="/">
+            <Button onClick={() => history.push("/")} variant="outlined">
+              Back home
+            </Button>
+          </Link>
+        </>
       )}
     </>
   );
