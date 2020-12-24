@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "50px",
   },
   media: {
-    margin: "0 100px",
+    margin: "auto",
   },
   card: {
     cursor: "pointer",
