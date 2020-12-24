@@ -17,8 +17,6 @@ import firstAlpha from "./functions";
 const useStyle = makeStyles({
   cardStyle: {
     margin: "auto",
-    width: "600px",
-    minWidth: "300px",
   },
   root: {
     margin: "50px 45%",
@@ -27,7 +25,7 @@ const useStyle = makeStyles({
     width: "300px",
     height: "300px",
     margin: "auto",
-    marginTop: "15px"
+    marginTop: "20px"
   }
 });
 
@@ -72,8 +70,8 @@ function Pokemon(props) {
               <Typography variant="h6">
                 species: <a href={species.url}>{species.name}</a>
               </Typography>
-              <Typography variant="h6"> weight: {weight}</Typography>
-              <Typography variant="h6"> height: {height}</Typography>
+              <Typography variant="h6"> weight: {weight}kg</Typography>
+              <Typography variant="h6"> height: {height}m</Typography>
               <Typography variant="h6"> Types: </Typography>
               {types.map((typeInfo) => {
                 const { type } = typeInfo;
